@@ -4,44 +4,86 @@
 
 def order(values: list = None) -> list:
     if values is None:
-        # TODO: demander les valeurs ici
-        pass
+        values = []
+        for i in range(10):
+            values.append(input("Donnez une valeur : "))
 
-    return []
+    return sorted(values)
 
 
 def anagrams(words: list = None) -> bool:
     if words is None:
-        # TODO: demander les mots ici
-        pass
+        words = []
+        words.append(sorted(input("Input a word : ")))
+        words.append(sorted(input("Input a word : ")))
 
-    return False
+    return words[0] == words[1]
 
 
 def contains_doubles(items: list) -> bool:
-    return False
+    item_dict = {}
+    for item in items:
+        if item not in item_dict:
+            item_dict.update({item: 0})
+        else:
+            return False
+
+    return True
 
 
 def best_grades(student_grades: dict) -> dict:
-    # TODO: Retourner un dictionnaire contenant le nom de l'étudiant ayant la meilleure moyenne ainsi que sa moyenne
-    return {}
+    student_grades = {key: value for key, value in sorted(student_grades.items(), key=lambda x: sum(x[1]) / len(x[1]), reverse=True)}
+
+    best_student = list(student_grades.keys())[0]
+    grade = sum(student_grades[best_student]) / len(student_grades[best_student])
+
+    return {best_student: grade}
 
 
 def frequence(sentence: str) -> dict:
-    # TODO: Afficher les lettres les plus fréquentes
-    #       Retourner le tableau de lettres
+    letter_dict = {}
 
-    return {}
+    for char in sentence:
+        if char == ' ' or char == ',' or char == '.' or char == ';' or char == ':':
+            continue
+        
+        if char not in letter_dict:
+            letter_dict.update({char: 1})
+        else:
+            letter_dict[char] += 1
 
+    letter_dict = {key: value for key, value in sorted(letter_dict.items(), key=lambda x: x[1], reverse=True)}
+    
+    for key, value in letter_dict.items():
+        if value > 5:
+            print(key)
+
+    return letter_dict
+
+recipe_dict = {}
 
 def get_recipes():
-    # TODO: Demander le nom d'une recette, puis ses ingredients et enregistrer dans une structure de données
-    pass
+    recipe_name = input("What is the name of your recipe? : ")
+    ingredient_list = []
 
+    while True:
+        ingredient = input("Enter an ingredient in the recipe or 'end' to stop the inputs : ")
+
+        if ingredient == 'end':
+            break
+
+        ingredient_list.append(ingredient)
+
+    recipe_dict.update({recipe_name : ingredient_list})
 
 def print_recipe(ingredients) -> None:
-    # TODO: Demander le nom d'une recette, puis l'afficher si elle existe
-    pass
+    recipe_name = input("What is the name of your recipe? : ")
+    
+    if recipe_name in recipe_dict:
+        for ingredient in recipe_dict[recipe_name]:
+            print(ingredient)
+    else:
+        print("this recipe doesn't exist")
 
 
 def main() -> None:
